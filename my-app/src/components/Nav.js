@@ -1,16 +1,20 @@
-import React, {useState} from 'react'
-import "../styles/nav.css"
+import React, { useState } from "react";
+import "../styles/nav.css";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 export default function Nav() {
-    const [isNavExpanded, setIsNavExpanded] = useState(false)
+  const [isNavExpanded, setIsNavExpanded] = useState(false);
   return (
     <nav className="navigation">
       <a href="/" className="brand-name">
         WeareMoon
       </a>
-      <button className="hamburger" onClick={() => {
+      <button
+        className="hamburger"
+        onClick={() => {
           setIsNavExpanded(!isNavExpanded);
-        }} >
+        }}
+      >
         {/* icon from heroicons.com */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -27,17 +31,19 @@ export default function Nav() {
       </button>
       <div
         className={
-            isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
-        }>
+          isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
+        }
+      >
         <ul>
-          <li>
-            <a href="/about">Login</a>
-          </li>
-          <li>
-            <a href="/contact">Signup</a>
-          </li>
+            <li>
+              <Link to="/login" >Login</Link>
+            </li>
+            <li>
+              <Link to="/register" >Signup</Link>
+            </li>
+        
         </ul>
       </div>
     </nav>
-  )
+  );
 }

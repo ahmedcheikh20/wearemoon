@@ -3,13 +3,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
+import * as dotenv from "dotenv"
 
+dotenv.config()
 
 
 @Module({
   imports: [MongooseModule.forRoot(
-    "mongodb+srv://amd:messi10@cluster0.bpanb.mongodb.net/myDatabase?retryWrites=true&w=majority"
-  ), UsersModule],
+    process.env.MONGODB_URL
+    ), UsersModule],
   controllers: [AppController],
   providers: [AppService],
 })
