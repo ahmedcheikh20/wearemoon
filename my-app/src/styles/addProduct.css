@@ -1,3 +1,9 @@
 .addProduct{
-    background-color: blue
+    background-color: grey;
+    display: flex;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30%
 }

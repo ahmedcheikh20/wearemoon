@@ -25,6 +25,7 @@
 
   .navigation-menu ul {
     display: flex;
+    flex-direction: row-reverse;
     padding: 0;
   }
   .navigation-menu li {

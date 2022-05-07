@@ -58,7 +58,6 @@ export class UsersController {
     @Res() res: Response,
   ) {
     const user = await this.usersService.findOneByEmail(email);
-   console.log(user)
     if (!user) {
       throw new BadRequestException('invalid credentials');
     }

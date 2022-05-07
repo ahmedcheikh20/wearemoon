@@ -21,7 +21,6 @@ export default function Nav() {
                 withCredentials: true
             }
         );
-  
         window.localStorage.clear()
         setAuth('');       
         navigate("/login", { replace: true });
@@ -47,7 +46,7 @@ export default function Nav() {
       return (
         <ul>
           <li>
-            <Link onClick={handleLogout}>Logout</Link>
+            <Link onClick={handleLogout} to="login">Logout</Link>
           </li>
           <li>
             <Link to="/">Products</Link>
