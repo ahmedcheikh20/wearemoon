@@ -8,6 +8,7 @@ import Packs from "./pages/Packs";
 import AddPack from "./pages/AddPack";
 import AddProduct from "./pages/AddProduct";
 import Error from "./pages/Error";
+import Unauthorized from "./pages/Unauthorized";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/addPack" element={<AddPack />}></Route>
           <Route path="/addProduct" element={<AddProduct />}></Route>
           <Route path="/*" element={<Error />}></Route>
+          <Route path="/unauthorized" element={<Unauthorized />}></Route>
         </Routes>
       </Router>
     </div>

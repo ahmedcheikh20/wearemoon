@@ -1,4 +1,7 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom"
+import "../styles/unauthorized.css"
+
 
 export default function Unauthorized() {
     const navigate = useNavigate();
