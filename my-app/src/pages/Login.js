@@ -1,19 +1,27 @@
 import React ,{useRef, useState , useEffect} from "react";
 import useAuth from '../hooks/useAuth'
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import axios from '../api/axios';
 const LOGIN_URL = '/users/login';
 
 
-export default function () {
+export default function Login () {
     const { setAuth } = useAuth()
+
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/"
+
+
     const userRef = useRef();
     const errRef = useRef();
 
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+    
     
     useEffect(() => {
         userRef.current.focus();
@@ -35,21 +43,18 @@ export default function () {
                 }
             );
             console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const role = response?.data?.role;
             const userName = response?.data?.user
+            
+            window.localStorage.setItem('auth',JSON.stringify({accessToken,role,userName}))
             setAuth({ userName, role, accessToken });
             setEmail('');
             setPwd('');
-            setSuccess(true);
+            navigate(from, { replace: true });
         } catch (err) {
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
+            if (err.response?.status === 400) {
+                setErrMsg('Wrong Username or Password');
             } else {
                 setErrMsg('Login Failed');
             }
@@ -58,16 +63,8 @@ export default function () {
     }
   
     return (
-        <>
-        {success ? (
-            <section>
-                <h1>You are logged in!</h1>
-                <br />
-                <p>
-                    <a href="#">Go to Home</a>
-                </p>
-            </section>
-        ) : (
+       
+            
             <section>
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <h1>Sign In</h1>
@@ -97,11 +94,10 @@ export default function () {
                     Need an Account?<br />
                     <span className="line">
                         {/*put router link here*/}
-                        <a href="#">Sign Up</a>
+                        <Link to="/register">Sign Up</Link>
                     </span>
                 </p>
             </section>
-        )}
-    </>
+     
     ) ;
 }

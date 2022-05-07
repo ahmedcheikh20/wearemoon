@@ -1,9 +1,85 @@
 import React, { useState } from "react";
 import "../styles/nav.css";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import axios from '../api/axios';
+
 
 export default function Nav() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
+  const { auth } = useAuth();
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
+  
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    
+    try {
+       await axios.post("users/logout",         
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            }
+        );
+  
+        window.localStorage.clear()
+        setAuth('');       
+        navigate("/login", { replace: true });
+    } catch (err) {
+            console.log(err)
+    }
+}
+
+
+  const Element = () => {
+    if (!auth) {
+      return (
+        <ul>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/register">Signup</Link>
+          </li>
+        </ul>
+      );
+    } else if (auth.role[0] === "agent" || auth.role[0] === "user") {
+      return (
+        <ul>
+          <li>
+            <Link onClick={handleLogout}>Logout</Link>
+          </li>
+          <li>
+            <Link to="/">Products</Link>
+          </li>
+          <li>
+            <Link to="/packs">Packs</Link>
+          </li>
+        </ul>
+      );
+    } else if (auth.role[0] === "admin") {
+      return (
+        <ul>
+          <li>
+            <Link onClick={handleLogout} to="login">Logout</Link>
+          </li>
+          <li>
+            <Link to="/">Products</Link>
+          </li>
+          <li>
+            <Link to="/packs">Packs</Link>
+          </li>
+          <li>
+            <Link to="/addProduct">AddProduct</Link>
+          </li>
+          <li>
+            <Link to="/addPack">AddPack</Link>
+          </li>
+        </ul>
+      );
+    }
+  };
+
   return (
     <nav className="navigation">
       <a href="/" className="brand-name">
@@ -34,15 +110,7 @@ export default function Nav() {
           isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
         }
       >
-        <ul>
-            <li>
-              <Link to="/login" >Login</Link>
-            </li>
-            <li>
-              <Link to="/register" >Signup</Link>
-            </li>
-        
-        </ul>
+        <Element />
       </div>
     </nav>
   );

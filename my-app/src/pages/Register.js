@@ -6,6 +6,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
+import { Link } from "react-router-dom";
+
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,15}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -90,6 +92,7 @@ export default function Register() {
       setMatchPwd("");
       setlast_name("")
       setemail("")
+      setSuccess(true)
       }).catch (err => {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -109,7 +112,7 @@ export default function Register() {
         <section>
           <h1>Success!</h1>
           <p>
-            <a href="#">Sign In</a>
+          <Link to="/login">Sign In</Link>
           </p>
         </section>
       ) : (
@@ -324,7 +327,8 @@ export default function Register() {
             <br />
             <span className="line">
               {/*put router link here*/}
-              <a href="#">Sign In</a>
+              <Link to="/login">Sign In</Link>
+
             </span>
           </p>
         </section>

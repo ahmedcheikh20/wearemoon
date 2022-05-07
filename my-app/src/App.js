@@ -8,29 +8,28 @@ import Packs from "./pages/Packs";
 import AddPack from "./pages/AddPack";
 import AddProduct from "./pages/AddProduct";
 import Error from "./pages/Error";
+import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./pages/Unauthorized";
 
 function App() {
   return (
-    <div>
-      {/* <div className="container"> */}
-      {/* <Register/> */}
-      {/* <Login/> */}
-      {/* </div> */}
-      <Router>
-        <Nav />
-        <Routes>
+    <Router>
+      <Nav />
+      <Routes>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route element={<RequireAuth allowedRoles={["admin", "user", "agent"]} />}>
           <Route path="/" element={<Products />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
           <Route path="/packs" element={<Packs />}></Route>
-          <Route path="/addPack" element={<AddPack />}></Route>
-          <Route path="/addProduct" element={<AddProduct />}></Route>
           <Route path="/*" element={<Error />}></Route>
           <Route path="/unauthorized" element={<Unauthorized />}></Route>
-        </Routes>
-      </Router>
-    </div>
+        </Route>
+        <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+          <Route path="/addProduct" element={<AddProduct />}></Route>
+          <Route path="/addPack" element={<AddPack />}></Route>
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 

@@ -7,17 +7,23 @@ import {
   Param,
   Delete,
   Res,
+  Req,
   BadRequestException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import * as bcrypt from 'bcrypt';
-var jwt = require("jsonwebtoken")
+var jwt = require('jsonwebtoken');
+
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  // REGISTER CONROLLER
   @Post('signup')
   async register(
     @Body('first_name') first_name: string,
@@ -44,42 +50,59 @@ export class UsersController {
       : res.status(200).json('user created');
   }
 
+  // LOGIN CONTROLLER
   @Post('login')
   async findOne(
     @Body('email') email: string,
     @Body('password') password: string,
     @Res() res: Response,
   ) {
-    const user = await this.usersService.findOne(email);
-  
+    const user = await this.usersService.findOneByEmail(email);
+   console.log(user)
     if (!user) {
       throw new BadRequestException('invalid credentials');
     }
 
-    if (!await bcrypt.compare(password, user.password)) {
+    if (!(await bcrypt.compare(password, user.password))) {
       throw new BadRequestException('invalid credentials');
     }
-
+  
+    // create JWTs
     const token = jwt.sign(
       { user_id: user.id },
-     "wearemoon"
-    )
+      process.env.ACCES_TOKEN_SECRET,
+      { expiresIn: '10s' },
+    );
+
+    const refreshToken = jwt.sign(
+      { user_id: user.id },
+      process.env.REFRESH_TOKEN_SECRET,
+      { expiresIn: '1d' },
+    );
+
+    res.cookie('jwt', refreshToken, {httpOnly: true});
 
     res.status(200).json({
       accessToken: token,
-      role: user.role,
-      user: `${user.first_name} ${user.last_name}`
-    })
+      role: [user.role],
+      user: `${user.first_name} ${user.last_name}`,
+    });
   }
 
-  @Get(':id')
-  login(@Body('email') email: string) {
-    return this.usersService.findOne(email);
-  }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() body) {
-    return this.usersService.update(+id);
+  @Post('logout')
+    async logout(@Res({passthrough: true}) response: Response) {
+        response.clearCookie('jwt');
+
+        return {
+            message: 'success'
+        }
+    }
+
+  //Get all users
+  @Patch('all')
+  GetUsers(@Res() res: Response, @Req() req: Request) {
+    
   }
 
   @Delete(':id')

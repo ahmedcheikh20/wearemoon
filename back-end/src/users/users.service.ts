@@ -36,13 +36,23 @@ export class UsersService {
     return result;
   }
 
-  findOne(email: string) {
+  findOneByEmail(email: string) {
     
     let user = this.usersModel
       .findOne({ email: email}).exec()
       
    return  user
   }
+
+  findOneByToken(refreshToken: string) {
+    
+    let user = this.usersModel
+      .findOne({ refreshToken: refreshToken}).exec()
+      
+   return  user
+  }
+
+
 
   update(id: number) {
     return `This action updates a #${id} user`;
