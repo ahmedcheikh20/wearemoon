@@ -66,6 +66,9 @@ export default function Nav() {
             <Link to="/">Products</Link>
           </li>
           <li>
+            <Link to="/users">Users</Link>
+          </li>
+          <li>
             <Link to="/packs">Packs</Link>
           </li>
           <li>
@@ -73,6 +76,9 @@ export default function Nav() {
           </li>
           <li>
             <Link to="/addPack">AddPack</Link>
+          </li>
+          <li>
+            <Link to="/addUser">AddUser</Link>
           </li>
         </ul>
       );

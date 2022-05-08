@@ -99,13 +99,27 @@ export class UsersController {
     }
 
   //Get all users
-  @Patch('all')
-  GetUsers(@Res() res: Response, @Req() req: Request) {
-    
+  @Get('all')
+  async GetUsers() {
+    const users = await this.usersService.getUsers()
+    return users
+  }
+
+  @Patch(':id')
+  async updateUsers(
+    @Body('first_name') first_name: string,
+    @Param("id") userId: string,
+    @Body('last_name') last_name: string,
+    @Body('email') email: string,
+    @Body('password') password: string,
+    @Body('role') role: string,
+  ) {
+    await this.usersService.updateUser(userId,first_name, last_name, email, password, role);
+    return null;
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.usersService.remove(id);
   }
 }

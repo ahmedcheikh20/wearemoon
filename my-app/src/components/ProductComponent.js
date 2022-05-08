@@ -2,9 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { Card, FormControl, InputGroup } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import axios from "../api/axios";
+import useAuth from "../hooks/useAuth";
 
 export default function ProductComponent(props) {
   const [Update, setUpdate] = useState(false);
+  const { auth } = useAuth()
   const title = useRef("");
   const price = useRef("")
 
@@ -83,16 +85,16 @@ export default function ProductComponent(props) {
               </InputGroup>
             )}
             <div className="d-flex  w-100 justify-content-between align-items-center">
-              <Button variant="primary" onClick={showUpdate} id={props.id}>
+              {(auth.role[0] ==="admin" || auth.role[0]==="agent") && <Button variant="primary" onClick={showUpdate} id={props.id}>
                 Update
-              </Button>
-              <Button
+              </Button>}
+              {auth.role[0] ==="admin" && <Button
                 variant="btn btn-danger"
                 id={props.id}
                 onClick={props.handleDelete}
               >
                 Delete
-              </Button>
+              </Button>}
             </div>
           </Card.Body>
         </Card>

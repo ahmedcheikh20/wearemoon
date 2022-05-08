@@ -53,12 +53,65 @@ export class UsersService {
   }
 
 
-
-  update(id: number) {
-    return `This action updates a #${id} user`;
+  async getUsers() {
+    const users = await this.usersModel.find().exec();
+    return users.map(user => ({
+      id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      role: user.role,
+    }));
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+
+  async updateUser(
+    UserId:string, 
+    first_name: string,
+    last_name: string,
+    email: string,
+    password: string,
+    role: string
+  ) {
+    
+    const updatedUser = await this.findUser(UserId);
+    if (first_name) {
+      updatedUser.first_name = first_name;
+    }
+    if (last_name) {
+      updatedUser.last_name = last_name;
+    }
+    if (email) {
+      updatedUser.email = email;
+    }
+    if (password){
+      updatedUser.password = password
+    }
+    if (role){
+      updatedUser.role = role
+    }
+    updatedUser.save();
+  }
+
+  async remove(id: string) {
+    const result = await this.usersModel.deleteOne({_id:id}).exec()
+  }
+
+  private async findUser(id: string): Promise<Users> {
+    let user;
+    try {
+      user = await this.usersModel.findById(id).exec();
+    } catch (error) {
+      throw new NotFoundException('Could not find user.');
+    }
+    if (!user) {
+      throw new NotFoundException('Could not find user.');
+    }
+    return user;
   }
 }
+
+
+
+
+

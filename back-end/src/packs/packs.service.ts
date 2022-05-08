@@ -43,17 +43,14 @@ export class PacksService {
   }
 
   async getSinglePack(PackId: string) {
-    const pack = await this.findPack(PackId);
-    const products = pack.products.map(async (product)=>{
-      const object = await this.productModel.findById(product).exec()
-    })
+    const pack = await this.findPack(PackId)
     return {
       id: pack.id,
       title: pack.title,
       description: pack.description,
       price: pack.price,
       image: pack.image,
-      products: products
+      products: pack.products,
     };
   }
 

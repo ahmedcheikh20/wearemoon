@@ -10,6 +10,8 @@ import AddProduct from "./pages/AddProduct";
 import Error from "./pages/Error";
 import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./pages/Unauthorized";
+import AddUser from "./pages/AddUser";
+import Users from "./pages/Users";
 
 function App() {
   return (
@@ -27,7 +29,8 @@ function App() {
         <Route element={<RequireAuth allowedRoles={["admin"]} />}>
           <Route path="/addProduct" element={<AddProduct />}></Route>
           <Route path="/addPack" element={<AddPack />}></Route>
-          <Route path="/updateProduct" element={<updatedProduct />}></Route>
+          <Route path="/addUser" element={<AddUser />}></Route>
+          <Route path="/Users" element={<Users />}></Route>
         </Route>
       </Routes>
     </Router>
