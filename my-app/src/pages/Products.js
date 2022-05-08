@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import ProductComponent from '../components/ProductComponent'
 import "../styles/products.css"
-import data from "../data"
+// import data from "../data"
 import axios from '../api/axios'
 
 export default function Products() {
-  let prod
+    const [data, setData] = useState([])
   useEffect(()=>{
    
 
@@ -16,23 +15,20 @@ export default function Products() {
        withCredentials: true
       }
       ).then(rst=>{
-        prod = rst.data
+        setData(rst.data)
       }).catch(err=>{
-        prod = []
+       setData([])
       })
-      
-      console.log(prod)
     
      
   },[])
+ 
+ 
   const products = data.map(item => {
     return (
         <ProductComponent
             key={item.id}
             img={item.coverImg}
-            rating={item.stats.rating}
-            reviewCount={item.stats.reviewCount}
-            location={item.location}
             title={item.title}
             price={item.price}
             openSpots={item.openSpots}
