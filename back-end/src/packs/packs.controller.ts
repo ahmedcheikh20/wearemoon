@@ -20,11 +20,15 @@ export class PacksController {
     @Body('title') packTitle: string,
     @Body('description') packDesc: string,
     @Body('price') packPrice: number,
+    @Body('image') packImage: string,
+    @Body("products") products: Array<string>
   ) {
     const generatedId = await this.packsService.insertPack(
       packTitle,
       packDesc,
       packPrice,
+      packImage,
+      products
     );
     return { id: generatedId };
   }
@@ -46,11 +50,14 @@ export class PacksController {
     @Body('title') packTitle: string,
     @Body('description') packDesc: string,
     @Body('price') packPrice: number,
+    @Body("image") packImage: string,
+    @Body("products") packproducts: Array<string>
   ) {
-    await this.packsService.updatePack(packId, packTitle, packDesc, packPrice);
+    await this.packsService.updatePack(packId, packTitle, packDesc, packPrice, packImage,packproducts);
     return null;
   }
 
+  
   @Delete(':id')
   async removepack(@Param('id') packId: string) {
       await this.packsService.deletePack(packId);

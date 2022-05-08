@@ -44,9 +44,9 @@ export class UsersController {
       (password = hash),
       role,
     );
-
+    
     result === 'Email exit'
-      ? res.status(409).json('email Taken')
+      ? res.status(409).json("you can't create user")
       : res.status(200).json('user created');
   }
 

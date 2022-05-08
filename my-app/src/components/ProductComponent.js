@@ -1,26 +1,24 @@
-import React from 'react'
-
-
+import React from "react";
+import { Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export default function ProductComponent(props) {
-  let badgeText
-  if (props.openSpots === 0) {
-      badgeText = "SOLD OUT"
-  } else if (props.location === "Online") {
-      badgeText = "ONLINE"
-  }
-  
   return (
-      <div className="card">
-          {badgeText && <div className="card--badge">{badgeText}</div>}
-          <img src={`../images/${props.img}`} className="card--image" />
-          <div className="card--stats">
-              
-              <span>{props.title}</span>
-              
-          </div>
-          <p className="card--title">{props.description}</p>
-          <p className="card--price"><span className="bold">From ${props.price}</span> / person</p>
-      </div>
-  )
+    <>
+      <>
+        <Card style={{ width: "21.5rem" ,margin:".5rem"  }}>
+          <Card.Img variant="top" src={`../images/${props.img}`} />
+          <Card.Body>
+            <Card.Title>{props.title}</Card.Title>
+            <Card.Text>{props.description}</Card.Text>
+            <Card.Text>From ${props.price} person</Card.Text>
+            <div className="d-flex  w-100 justify-content-between align-items-center">
+              <Button variant="primary">Update</Button>
+              <Button variant="btn btn-danger">Delete</Button>
+            </div>
+          </Card.Body>
+        </Card>
+      </>
+    </>
+  );
 }
