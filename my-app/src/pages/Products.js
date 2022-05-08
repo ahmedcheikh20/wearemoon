@@ -6,6 +6,19 @@ import axios from "../api/axios";
 
 export default function Products() {
   const [data, setData] = useState([]);
+  const handleDelete = async (e)=>{
+    e.preventDefault();
+    const response = await axios.delete(`products/${e.target.id}`,
+     {
+         headers: { 'Content-Type': 'application/json' },
+         withCredentials: true
+     }
+     
+ );
+ setData([])
+ 
+}
+
   useEffect(() => {
     axios
       .get("products", {
@@ -18,16 +31,17 @@ export default function Products() {
       .catch((err) => {
         setData([]);
       });
-  }, []);
+  }, [data]);
 
-  const products = data.map((item) => {
+  const products = data.map((item,index) => {
     return (
       <ProductComponent
-        key={item.id}
-        img={item.coverImg}
+        key={`product number ${index}`}
+        id={item.id}
+        img={item.image}
         title={item.title}
         price={item.price}
-        openSpots={item.openSpots}
+        handleDelete={handleDelete}
       />
     );
   });

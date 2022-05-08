@@ -27,6 +27,7 @@ function App() {
         <Route element={<RequireAuth allowedRoles={["admin"]} />}>
           <Route path="/addProduct" element={<AddProduct />}></Route>
           <Route path="/addPack" element={<AddPack />}></Route>
+          <Route path="/updateProduct" element={<updatedProduct />}></Route>
         </Route>
       </Routes>
     </Router>

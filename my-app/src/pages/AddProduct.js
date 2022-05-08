@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 export default function AddProduct() {
   const navigate = useNavigate();
   const formData = createRef();
+  
   // addproduct handler method
   const [loading, setLoading] = useState(false);
   const [pic, setPic] = useState("");
+
   const add = async (event) => {
     event.preventDefault();
 
@@ -18,7 +20,9 @@ export default function AddProduct() {
       title: formData.current.product_name.value,
       price: Number(formData.current.price.value),
       description: formData.current.description.value,
+      image: pic
     };
+  
     try {
       await axios.post("products", JSON.stringify(newProduct), {
         headers: { "Content-Type": "application/json" },
@@ -60,16 +64,18 @@ export default function AddProduct() {
       return;
     }
   };
-  console.log(pic);
+
+
   return (
     <Stack gap={2} className="col-md-6 mt-5 px-sm-5    mx-auto">
       <Form onSubmit={add} ref={formData}>
-        <Form.Group md="4" controlId="formBasicProductName">
+        <Form.Group md="4" controlId="formBasicProductName" name="product_name">
           <Form.Label>Product Name:</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter Product Name"
             name="product_name"
+            required
           />
         </Form.Group>
 
@@ -79,6 +85,7 @@ export default function AddProduct() {
             type="number"
             placeholder="Price in Euro"
             name="price"
+            required
           />
         </Form.Group>
 
@@ -88,19 +95,21 @@ export default function AddProduct() {
             type="texte"
             placeholder="description"
             name="description"
+            required
           />
         </Form.Group>
 
         <Form.Group md="4" controlId="formBasicQty">
-          <Form.Label>Image:</Form.Label>
+          <Form.Label>Photo:</Form.Label>
           <Form.Control
             type="file"
             placeholder="description"
             onChange={(e) => picInput(e.target.files[0])}
-            name="description"
+            name="image"
+            required
           />
         </Form.Group>
-        <Button className="mt-4" variant="primary" type="submit">
+        <Button className="mt-4" variant="primary" type="submit" disabled={!pic ? true : false}>
           {" "}
           Add to Product
         </Button>
