@@ -89,6 +89,7 @@ export default function Register() {
           email,
           password: pwd,
           role: "user",
+          image: "avatar"
         }),
         {
           headers: {

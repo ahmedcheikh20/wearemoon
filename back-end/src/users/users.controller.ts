@@ -30,11 +30,12 @@ export class UsersController {
     @Body('email') email: string,
     @Body('password') password: string,
     @Body('role') role: string,
+    @Body('image') image : string,
     @Res() res: Response,
   ) {
     let saltOrRounds = 10;
-
-    if(!first_name || !last_name || !email || !password || !role ){
+    console.log(first_name,last_name,email,password,image)
+    if(!first_name || !last_name || !email || !password || !role  || !image  ){
       throw new BadRequestException('need more data');
     }
     let hash = await bcrypt.hash(password, saltOrRounds);
@@ -46,6 +47,7 @@ export class UsersController {
       email,
       (password = hash),
       role,
+      image
     );
     
     result === 'Email exit'

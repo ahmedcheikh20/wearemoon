@@ -15,6 +15,7 @@ export class UsersService {
     email: string,
     password: string,
     role: string,
+    image: string
   ) {
     const newUser = new this.usersModel({
       first_name,
@@ -22,6 +23,7 @@ export class UsersService {
       email,
       password,
       role,
+      image
     });
 
     const result = await newUser

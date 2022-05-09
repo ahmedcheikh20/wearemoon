@@ -23,11 +23,16 @@ const AddPack = () => {
  
 
   const handleDeleteBadge = (e) => {
-      
-      let prod = [...packProducts]
-     
-      let filteret = prod.filter(element => element.id !== e.target.id) 
-      setProducts(filteret)
+    const options = document.querySelectorAll("option");
+    const selected = [...options].filter((option) => option.disabled);
+    const undisabledProduct = selected.find(
+      (elem) => elem.value === e.target.innerText
+    );
+    undisabledProduct.disabled = false;
+
+    let prod = [...packProducts];
+    let filteret = prod.filter((element) => element.id !== e.target.id);
+    setProducts(filteret);
   };
   const handleSelect = (e) => {
     

@@ -34,7 +34,7 @@ export default function AddProduct() {
       console.log(err);
     }
   };
-
+  
   const picInput = (pics) => {
     setLoading(true);
     if (pics === undefined) {
@@ -44,8 +44,8 @@ export default function AddProduct() {
       const data = new FormData();
       data.append("file", pics);
       data.append("upload_preset", "freemarket");
-      data.append("cloud_name", "dknjr9o66");
-      fetch("https://api.cloudinary.com/v1_1/dknjr9o66/image/upload", {
+      data.append("cloud_name", process.env.REACT_APP_cloud_name);
+      fetch(process.env.REACT_APP_CLOUDINARY, {
         method: "post",
         body: data,
       })
@@ -89,7 +89,7 @@ export default function AddProduct() {
           />
         </Form.Group>
 
-        <Form.Group md="4" controlId="formBasicQty">
+        <Form.Group md="4" controlId="formBasicQty" name="description">
           <Form.Label>Description:</Form.Label>
           <Form.Control
             type="texte"
