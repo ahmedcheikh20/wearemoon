@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useCallback } from "react";
 import ProductComponent from "../components/ProductComponent";
 import "../styles/products.css";
 // import data from "../data"
@@ -6,7 +6,7 @@ import axios from "../api/axios";
 
 export default function Products() {
   const [data, setData] = useState([]);
-  const handleDelete = async (e)=>{
+  const handleDelete = useCallback(async (e)=>{
     e.preventDefault();
     const response = await axios.delete(`products/${e.target.id}`,
      {
@@ -15,9 +15,9 @@ export default function Products() {
      }
      
  );
- setData([])
+
  
-}
+},[])
 
   useEffect(() => {
     axios
@@ -31,7 +31,7 @@ export default function Products() {
       .catch((err) => {
         setData([]);
       });
-  }, [data]);
+  }, [data,handleDelete]);
 
   const products = data.map((item,index) => {
     return (

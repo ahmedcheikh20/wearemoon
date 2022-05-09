@@ -86,6 +86,7 @@ export class PacksService {
     if (result.deletedCount === 0 ) {
       throw new NotFoundException('Could not find Pack.');
     }
+    return 'deleted'
   }
 
   private async findPack(id: string): Promise<Pack> {

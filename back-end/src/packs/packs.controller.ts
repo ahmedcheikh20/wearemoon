@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Delete,
+  BadRequestException
 } from '@nestjs/common';
 
 import { PacksService } from './packs.service';
@@ -23,6 +24,10 @@ export class PacksController {
     @Body('image') packImage: string,
     @Body("products") products: Array<string>
   ) {
+    if(!packTitle || !packDesc || !packPrice || !packImage || !products){
+      throw new BadRequestException('need more data');
+    }
+
     const generatedId = await this.packsService.insertPack(
       packTitle,
       packDesc,
@@ -41,6 +46,9 @@ export class PacksController {
 
   @Get(':id')
   getpack(@Param('id') packId: string) {
+    if (!packId.match(/^[0-9a-fA-F]{24}$/)) {
+      throw new BadRequestException(`${packId} is not a valid id`);
+    }
     return this.packsService.getSinglePack(packId);
   }
 
@@ -53,6 +61,13 @@ export class PacksController {
     @Body("image") packImage: string,
     @Body("products") packproducts: Array<string>
   ) {
+    if (!packId.match(/^[0-9a-fA-F]{24}$/)) {
+      throw new BadRequestException(`${packId} is not a valid id`);
+    }
+    if(!packTitle && !packDesc && !packPrice && !packImage){
+      throw new BadRequestException('need more data');
+    }
+
     await this.packsService.updatePack(packId, packTitle, packDesc, packPrice, packImage,packproducts);
     return null;
   }
@@ -60,7 +75,10 @@ export class PacksController {
   
   @Delete(':id')
   async removepack(@Param('id') packId: string) {
-      await this.packsService.deletePack(packId);
-      return null;
+    if (!packId.match(/^[0-9a-fA-F]{24}$/)) {
+      throw new BadRequestException(`${packId} is not a valid id`);
+    }
+      const result = await this.packsService.deletePack(packId);
+      return 
   }
 }

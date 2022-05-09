@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   Res,
-  Req,
   BadRequestException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -35,7 +34,11 @@ export class UsersController {
   ) {
     let saltOrRounds = 10;
 
+    if(!first_name || !last_name || !email || !password || !role ){
+      throw new BadRequestException('need more data');
+    }
     let hash = await bcrypt.hash(password, saltOrRounds);
+    
 
     const result = await this.usersService.create(
       first_name,
@@ -114,12 +117,22 @@ export class UsersController {
     @Body('password') password: string,
     @Body('role') role: string,
   ) {
+    if(!first_name && !last_name && !email && !password && !role ){
+      throw new BadRequestException('What to update?');
+    }
+    if (!userId.match(/^[0-9a-fA-F]{24}$/)) {
+      throw new BadRequestException(`${userId} is not a valid id`);
+    }
+
     await this.usersService.updateUser(userId,first_name, last_name, email, password, role);
     return null;
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      throw new BadRequestException(`${id} is not a valid id`);
+    }
     return this.usersService.remove(id);
   }
 }

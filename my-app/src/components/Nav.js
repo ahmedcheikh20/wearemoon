@@ -1,44 +1,54 @@
 import React, { useState } from "react";
 import "../styles/nav.css";
-import {  Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import axios from '../api/axios';
-
+import axios from "../api/axios";
+import { FaUserAlt } from "react-icons/fa";
+import { MdAppRegistration } from "react-icons/md";
 
 export default function Nav() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const { auth } = useAuth();
   const { setAuth } = useAuth();
   const navigate = useNavigate();
-  
+
   const handleLogout = async (e) => {
     e.preventDefault();
-    
-    try {
-       await axios.post("users/logout",         
-            {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            }
-        );
-        window.localStorage.clear()
-        setAuth('');       
-        navigate("/login", { replace: true });
-    } catch (err) {
-            console.log(err)
-    }
-}
 
+    try {
+      await axios.post("users/logout", {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+      window.localStorage.clear();
+      setAuth("");
+      navigate("/login", { replace: true });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const Element = () => {
     if (!auth) {
       return (
         <ul>
           <li>
-            <Link to="/login">Login</Link>
+            <Link
+              to="/login"
+              className="d-flex align-items-center justify-content-between"
+            >
+              <FaUserAlt className="w-50" size={18} />{" "}
+              <span className="w-50">Login</span>{" "}
+            </Link>
           </li>
           <li>
-            <Link to="/register">Signup</Link>
+            <Link
+              to="/register"
+              className="d-flex w-100 align-items-center justify-content-between"
+            >
+              <MdAppRegistration className="w-50" size={22} />{" "}
+              <span className="w-50">SignUp</span>{" "}
+            </Link>
           </li>
         </ul>
       );
@@ -46,7 +56,9 @@ export default function Nav() {
       return (
         <ul>
           <li>
-            <Link onClick={handleLogout} to="login">Logout</Link>
+            <Link onClick={(e) => handleLogout(e)} to="login">
+              Logout
+            </Link>
           </li>
           <li>
             <Link to="/">Products</Link>
@@ -60,7 +72,9 @@ export default function Nav() {
       return (
         <ul>
           <li>
-            <Link onClick={handleLogout} to="login">Logout</Link>
+            <Link onClick={(e) => handleLogout(e)} to="login">
+              Logout
+            </Link>
           </li>
           <li>
             <Link to="/">Products</Link>
@@ -86,15 +100,13 @@ export default function Nav() {
   };
 
   return (
-    <nav className="navigation">
+    <nav className="navigation d-flex px-5 align-items-center">
       <a href="/" className="brand-name">
         WeareMoon
       </a>
       <button
         className="hamburger"
-        onClick={() => {
-          setIsNavExpanded(!isNavExpanded);
-        }}
+        onClick={() => setIsNavExpanded(!isNavExpanded)}
       >
         {/* icon from heroicons.com */}
         <svg
