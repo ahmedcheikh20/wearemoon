@@ -4,10 +4,9 @@ import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import axios from "../api/axios";
 import User from "../components/User";
 
-
 export default function Users() {
   const [users, setUsers] = useState([]);
-   console.log(users)
+  
   useEffect(() => {
     axios
       .get("users/all", {
@@ -21,16 +20,17 @@ export default function Users() {
         setUsers([]);
       });
   }, []);
- 
+
   return (
-    <div
-      className={
-        "d-flex justify-content-start align-items-center mt-5 w-75 flex-wrap mx-auto"
-      }
-    >
-      {users.map(user=>{
-          return <User user={user}/>
-      })}
-    </div>
+    <>
+    
+        <h1 className="text-center mt-5">User's List</h1>
+        <div className="d-flex justify-content-start w-75  align-items-center mt-5 mx-auto flex-wrap">
+          {users.map((user) => {
+            return <User user={user} />;
+          })}
+        </div>
+
+    </>
   );
 }

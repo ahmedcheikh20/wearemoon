@@ -67,10 +67,11 @@ export default function AddUser() {
 
   return (
     <Stack gap={2} className="col-md-6 mt-5 px-sm-5    mx-auto">
+        <h1 className="text-center">Add User</h1>
       <Form onSubmit={add}  ref={formData} >
         <Form.Group md="4" controlId="formBasicProductName" name="first_name">
           <Form.Label>First name</Form.Label>
-          <Form.Control
+          <Form.Control 
             type="text"
             placeholder="first name"
             name="first_name"

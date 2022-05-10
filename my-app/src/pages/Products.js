@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ProductComponent from "../components/ProductComponent";
 import "../styles/products.css";
 // import data from "../data"
@@ -6,18 +6,14 @@ import axios from "../api/axios";
 
 export default function Products() {
   const [data, setData] = useState([]);
-  const handleDelete = useCallback(async (e)=>{
-    e.preventDefault();
-    const response = await axios.delete(`products/${e.target.id}`,
-     {
-         headers: { 'Content-Type': 'application/json' },
-         withCredentials: true
-     }
-     
- );
+  const handleDelete = useCallback(async (ID) => {
 
- 
-},[])
+
+    const response = await axios.delete(`products/${ID}`, {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    });
+  }, []);
 
   useEffect(() => {
     axios
@@ -31,9 +27,9 @@ export default function Products() {
       .catch((err) => {
         setData([]);
       });
-  }, [data,handleDelete]);
+  }, [data, handleDelete]);
 
-  const products = data.map((item,index) => {
+  const products = data.map((item, index) => {
     return (
       <ProductComponent
         key={`product number ${index}`}
@@ -46,8 +42,11 @@ export default function Products() {
     );
   });
   return (
-    <div className="d-flex justify-content-start align-items-center mt-5 w-75 flex-wrap mx-auto">
-      {products}
-    </div>
+    <>
+      <h1 className="text-center mt-5">Products</h1>
+      <div className="d-flex  align-items-center mt-5 w-75 flex-wrap mx-auto">
+        {products}
+      </div>
+    </>
   );
 }

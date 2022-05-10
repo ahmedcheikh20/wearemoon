@@ -104,16 +104,15 @@ button {
 }
 
 .link {
-
-  text-decoration: none;
+text-decoration: none;
 
 }
 
 
 
-.brand-name {
 
-  margin-left: 0 !important;
+.brand-name {
+margin-left: 0 !important;
 }
 
 .form-control[type="password"] {
@@ -124,10 +123,17 @@ button {
   background-color: #fff !important;
   cursor: pointer;
 }
+.zoom{
+  transition: 2s;
+}
+.zoom:hover {
+  -ms-transform: scale(1.06); /* IE 9 */
+  -webkit-transform: scale(1.06); /* Safari 3-8 */
+  transform: scale(1.06); 
+}
 
-/* login */
 
+.navigation-menu {
+  z-index: 10;
 
-/* login */
-
-
+}

@@ -15,6 +15,7 @@ import * as bcrypt from 'bcrypt';
 var jwt = require('jsonwebtoken');
 
 import * as dotenv from 'dotenv';
+import { first } from 'rxjs';
 
 dotenv.config();
 
@@ -34,13 +35,13 @@ export class UsersController {
     @Res() res: Response,
   ) {
     let saltOrRounds = 10;
-    console.log(first_name,last_name,email,password,image)
+    
     if(!first_name || !last_name || !email || !password || !role  || !image  ){
       throw new BadRequestException('need more data');
     }
     let hash = await bcrypt.hash(password, saltOrRounds);
     
-
+    console.log(first_name,last_name,email,password, role, image)
     const result = await this.usersService.create(
       first_name,
       last_name,
