@@ -11,6 +11,7 @@ export default function PackComponent(props) {
   const title = useRef("");
   const price = useRef("");
 
+
   const showUpdate = () => {
     setUpdate(!Update);
   };
@@ -72,7 +73,7 @@ export default function PackComponent(props) {
               </InputGroup>
             )}
             <Card.Text>{props.description}</Card.Text>
-            <Card.Text>From ${props.price} person</Card.Text>
+            <Card.Text>From ${props.price}</Card.Text>
             {Update && (
               <InputGroup className="mb-3">
                 <FormControl

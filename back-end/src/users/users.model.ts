@@ -10,6 +10,7 @@ export const UsersSchema = new mongoose.Schema({
   },
   password: { type: String, required: [true, 'password is required'] },
   role: { type: String, required: [true, 'role is required'] },
+  image: String
 
 });
 
@@ -19,4 +20,5 @@ export interface Users extends mongoose.Document {
   email: string;
   password: string;
   role: string;
+  image: string
 }

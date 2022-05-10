@@ -52,12 +52,14 @@ export class UsersService {
 
   async getUsers() {
     const users = await this.usersModel.find().exec();
+    console.log(users)
     return users.map((user) => ({
       id: user.id,
       first_name: user.first_name,
       last_name: user.last_name,
       email: user.email,
       role: user.role,
+      image: user.image
     }));
   }
 

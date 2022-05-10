@@ -70,7 +70,7 @@ export default function ProductComponent(props) {
               </InputGroup>
             )}
             <Card.Text>{props.description}</Card.Text>
-            <Card.Text>From ${props.price} person</Card.Text>
+            <Card.Text>From ${props.price}</Card.Text>
             {Update && (
               <InputGroup className="mb-3">
                 <FormControl

@@ -33,6 +33,7 @@ export default function Packs() {
         img={item.image}
         title={item.title}
         price={item.price}
+        description={item.description}
         handleDelete={handleDelete}
       />
     );

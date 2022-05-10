@@ -62,7 +62,7 @@ export default function User({ user, handleDelete }) {
         <Card.Img
           variant="top"
           height="220"
-          src={!user.image ? avatar : user.image}
+          src={user.image === "avatar" ? avatar : user.image}
         />
         <Card.Body>
           <Card.Title>{`${user.first_name} ${user.last_name}`}</Card.Title>

@@ -83,7 +83,7 @@ export default function AddProduct() {
           <Form.Label>Price:</Form.Label>
           <Form.Control
             type="number"
-            placeholder="Price in Euro"
+            placeholder="Price"
             name="price"
             required
           />
