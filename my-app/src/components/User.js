@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import "../styles/users.css";
+
 import {
   Card,
   ListGroup,
@@ -13,7 +13,7 @@ import avatar from "../images/avatar.jpg";
 import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 
-export default function User({ user,handleDelete }) {
+export default function User({ user, handleDelete }) {
   const [Update, setUpdate] = useState(false);
   const { auth } = useAuth();
   const first_name = useRef("");
@@ -103,10 +103,17 @@ export default function User({ user,handleDelete }) {
           </>
         )}
         <div className="d-flex flex-row justify-content-between mt-3 mx-2 mb-3 align-content-center">
-          <Button variant="btn btn-primary" className="text-white" onClick={showUpdate} >
+          <Button
+            variant="btn btn-primary"
+            className="text-white"
+            onClick={showUpdate}
+          >
             Update
           </Button>
-          <Button variant="btn btn-danger" onClick={()=>handleDelete(user.id)} >
+          <Button
+            variant="btn btn-danger"
+            onClick={() => handleDelete(user.id)}
+          >
             <AiTwotoneDelete size={28} />
           </Button>
         </div>

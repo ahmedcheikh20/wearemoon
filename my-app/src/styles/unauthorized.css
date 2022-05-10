@@ -1,3 +1,8 @@
 .unauthorized{
-    background-color: brown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: space space-around;
+    flex-direction: column;
+    padding: 100px 60px;
 }

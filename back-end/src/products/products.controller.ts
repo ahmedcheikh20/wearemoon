@@ -6,7 +6,7 @@ import {
   Param,
   Patch,
   Delete,
-  BadRequestException
+  BadRequestException,
 } from '@nestjs/common';
 
 import { ProductsService } from './products.service';
@@ -20,10 +20,9 @@ export class ProductsController {
     @Body('title') prodTitle: string,
     @Body('description') prodDesc: string,
     @Body('price') prodPrice: number,
-    @Body("image") prodImage: string 
+    @Body('image') prodImage: string,
   ) {
-    if(!prodTitle || !prodDesc || !prodPrice || !prodImage){
-      console.log(prodTitle,prodDesc,prodPrice,prodImage)
+    if (!prodTitle || !prodDesc || !prodPrice || !prodImage) {
       throw new BadRequestException('need more data');
     }
 
@@ -31,7 +30,7 @@ export class ProductsController {
       prodTitle,
       prodDesc,
       prodPrice,
-      prodImage
+      prodImage,
     );
     return { id: generatedId };
   }
@@ -61,11 +60,17 @@ export class ProductsController {
     if (!prodId.match(/^[0-9a-fA-F]{24}$/)) {
       throw new BadRequestException(`${prodId} is not a valid id`);
     }
-    
-    if(!prodTitle && !prodDesc && !prodPrice && !prodImage){
+
+    if (!prodTitle && !prodDesc && !prodPrice && !prodImage) {
       throw new BadRequestException('need more data');
     }
-    await this.productsService.updateProduct(prodId, prodTitle, prodDesc, prodPrice, prodImage);
+    await this.productsService.updateProduct(
+      prodId,
+      prodTitle,
+      prodDesc,
+      prodPrice,
+      prodImage,
+    );
     return null;
   }
 
@@ -74,8 +79,7 @@ export class ProductsController {
     if (!prodId.match(/^[0-9a-fA-F]{24}$/)) {
       throw new BadRequestException(`${prodId} is not a valid id`);
     }
-      await this.productsService.deleteProduct(prodId);
-      return null;
+    await this.productsService.deleteProduct(prodId);
+    return null;
   }
-  
 }

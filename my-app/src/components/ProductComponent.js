@@ -97,9 +97,9 @@ export default function ProductComponent(props) {
                 <Button
                   variant="btn btn-danger"
                   id={props.id}
-                  onClick={()=>props.handleDelete(props.id)}
+                  onClick={() => props.handleDelete(props.id)}
                 >
-                 <AiTwotoneDelete   size={28}/>
+                  <AiTwotoneDelete size={28} />
                 </Button>
               )}
             </div>

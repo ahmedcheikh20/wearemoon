@@ -3,7 +3,7 @@ import { createRef } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
-import { Form, Button, Stack, InputGroup, Col, Alert } from "react-bootstrap";
+import { Form, Button, Stack, Alert } from "react-bootstrap";
 export default function AddUser() {
   const navigate = useNavigate();
   const formData = createRef();
@@ -31,7 +31,7 @@ export default function AddUser() {
 
       navigate("/users", { replace: true });
     } catch (err) {
-      setError("Bad request");
+      setError("Email Taken");
     }
   };
 
@@ -55,7 +55,7 @@ export default function AddUser() {
           setLoading(false);
         })
         .catch((error) => {
-          console.log(error);
+
           setLoading(false);
         });
     } else {

@@ -5,10 +5,12 @@ import { Model } from 'mongoose';
 import { Pack } from './pack.model';
 import { Product } from '../products/product.model';
 
-
 @Injectable()
 export class PacksService {
-  constructor(@InjectModel('Pack') private readonly packModel: Model<Pack>,@InjectModel('Product') private readonly productModel: Model<Product>) {}
+  constructor(
+    @InjectModel('Pack') private readonly packModel: Model<Pack>,
+    @InjectModel('Product') private readonly productModel: Model<Product>,
+  ) {}
 
   async insertPack(
     title: string,
@@ -22,11 +24,10 @@ export class PacksService {
       description: desc,
       price,
       image,
-      products: products
+      products: products,
     });
 
     const result = await newPack.save();
-  
 
     return result.id as string;
   }
@@ -43,7 +44,7 @@ export class PacksService {
   }
 
   async getSinglePack(PackId: string) {
-    const pack = await this.findPack(PackId)
+    const pack = await this.findPack(PackId);
     return {
       id: pack.id,
       title: pack.title,
@@ -60,7 +61,7 @@ export class PacksService {
     desc: string,
     price: number,
     image: string,
-    products: Array<string>
+    products: Array<string>,
   ) {
     const updatedPack = await this.findPack(packId);
     if (title) {
@@ -83,10 +84,10 @@ export class PacksService {
 
   async deletePack(packId: string) {
     const result = await this.packModel.deleteOne({ _id: packId }).exec();
-    if (result.deletedCount === 0 ) {
+    if (result.deletedCount === 0) {
       throw new NotFoundException('Could not find Pack.');
     }
-    return 'deleted'
+    return 'deleted';
   }
 
   private async findPack(id: string): Promise<Pack> {

@@ -81,7 +81,7 @@ export default function Login() {
           </p>
           <h1 className="text-center">Sign In</h1>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formGroupEmail">
+            <Form.Group className="mb-3">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
@@ -95,7 +95,7 @@ export default function Login() {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formGroupPassword">
+            <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
               <InputGroup>
                 {" "}
@@ -115,9 +115,7 @@ export default function Login() {
               </InputGroup>
             </Form.Group>
 
-            <Button
-            onClick={handleSubmit}
-            >Sign In</Button>
+            <Button onClick={handleSubmit}>Sign In</Button>
           </Form>
           <div>
             Need an Account?

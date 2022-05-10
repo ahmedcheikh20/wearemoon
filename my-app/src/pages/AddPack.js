@@ -76,7 +76,7 @@ const AddPack = () => {
           setLoading(false);
         })
         .catch((error) => {
-          console.log(error);
+          
           setLoading(false);
         });
     } else {
@@ -191,6 +191,7 @@ const AddPack = () => {
                 as="textarea"
                 rows={3}
                 name="description"
+                required
               />
             </Form.Group>
 

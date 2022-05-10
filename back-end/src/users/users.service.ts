@@ -15,7 +15,7 @@ export class UsersService {
     email: string,
     password: string,
     role: string,
-    image: string
+    image: string,
   ) {
     const newUser = new this.usersModel({
       first_name,
@@ -23,7 +23,7 @@ export class UsersService {
       email,
       password,
       role,
-      image
+      image,
     });
 
     const result = await newUser
@@ -39,25 +39,20 @@ export class UsersService {
   }
 
   findOneByEmail(email: string) {
-    
-    let user = this.usersModel
-      .findOne({ email: email}).exec()
-      
-   return  user
+    let user = this.usersModel.findOne({ email: email }).exec();
+
+    return user;
   }
 
   findOneByToken(refreshToken: string) {
-    
-    let user = this.usersModel
-      .findOne({ refreshToken: refreshToken}).exec()
-      
-   return  user
-  }
+    let user = this.usersModel.findOne({ refreshToken: refreshToken }).exec();
 
+    return user;
+  }
 
   async getUsers() {
     const users = await this.usersModel.find().exec();
-    return users.map(user => ({
+    return users.map((user) => ({
       id: user.id,
       first_name: user.first_name,
       last_name: user.last_name,
@@ -66,16 +61,14 @@ export class UsersService {
     }));
   }
 
-
   async updateUser(
-    UserId:string, 
+    UserId: string,
     first_name: string,
     last_name: string,
     email: string,
     password: string,
-    role: string
+    role: string,
   ) {
-    
     const updatedUser = await this.findUser(UserId);
     if (first_name) {
       updatedUser.first_name = first_name;
@@ -86,17 +79,17 @@ export class UsersService {
     if (email) {
       updatedUser.email = email;
     }
-    if (password){
-      updatedUser.password = password
+    if (password) {
+      updatedUser.password = password;
     }
-    if (role){
-      updatedUser.role = role
+    if (role) {
+      updatedUser.role = role;
     }
     updatedUser.save();
   }
 
   async remove(id: string) {
-    const result = await this.usersModel.deleteOne({_id:id}).exec()
+    const result = await this.usersModel.deleteOne({ _id: id }).exec();
   }
 
   private async findUser(id: string): Promise<Users> {
@@ -112,8 +105,3 @@ export class UsersService {
     return user;
   }
 }
-
-
-
-
-

@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Post,
@@ -7,7 +6,7 @@ import {
   Param,
   Patch,
   Delete,
-  BadRequestException
+  BadRequestException,
 } from '@nestjs/common';
 
 import { PacksService } from './packs.service';
@@ -22,9 +21,9 @@ export class PacksController {
     @Body('description') packDesc: string,
     @Body('price') packPrice: number,
     @Body('image') packImage: string,
-    @Body("products") products: Array<string>
+    @Body('products') products: Array<string>,
   ) {
-    if(!packTitle || !packDesc || !packPrice || !packImage || !products){
+    if (!packTitle || !packDesc || !packPrice || !packImage || !products) {
       throw new BadRequestException('need more data');
     }
 
@@ -33,7 +32,7 @@ export class PacksController {
       packDesc,
       packPrice,
       packImage,
-      products
+      products,
     );
     return { id: generatedId };
   }
@@ -58,27 +57,33 @@ export class PacksController {
     @Body('title') packTitle: string,
     @Body('description') packDesc: string,
     @Body('price') packPrice: number,
-    @Body("image") packImage: string,
-    @Body("products") packproducts: Array<string>
+    @Body('image') packImage: string,
+    @Body('products') packproducts: Array<string>,
   ) {
     if (!packId.match(/^[0-9a-fA-F]{24}$/)) {
       throw new BadRequestException(`${packId} is not a valid id`);
     }
-    if(!packTitle && !packDesc && !packPrice && !packImage){
+    if (!packTitle && !packDesc && !packPrice && !packImage) {
       throw new BadRequestException('need more data');
     }
 
-    await this.packsService.updatePack(packId, packTitle, packDesc, packPrice, packImage,packproducts);
+    await this.packsService.updatePack(
+      packId,
+      packTitle,
+      packDesc,
+      packPrice,
+      packImage,
+      packproducts,
+    );
     return null;
   }
 
-  
   @Delete(':id')
   async removepack(@Param('id') packId: string) {
     if (!packId.match(/^[0-9a-fA-F]{24}$/)) {
       throw new BadRequestException(`${packId} is not a valid id`);
     }
-      const result = await this.packsService.deletePack(packId);
-      return 
+    const result = await this.packsService.deletePack(packId);
+    return;
   }
 }

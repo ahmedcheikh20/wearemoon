@@ -1,8 +1,0 @@
-.products{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    overflow-x: auto
-}
-
-

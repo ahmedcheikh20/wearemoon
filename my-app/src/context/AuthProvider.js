@@ -3,13 +3,15 @@ import { createContext, useState } from "react";
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-    const [auth, setAuth] = useState(()=> JSON.parse(window.localStorage.getItem("auth")) );
+  const [auth, setAuth] = useState(() =>
+    JSON.parse(window.localStorage.getItem("auth"))
+  );
 
-    return (
-        <AuthContext.Provider value={{ auth, setAuth }}>
-            {children}
-        </AuthContext.Provider>
-    )
-}
+  return (
+    <AuthContext.Provider value={{ auth, setAuth }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
 export default AuthContext;

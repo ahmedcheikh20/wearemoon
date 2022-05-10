@@ -1,4 +1,4 @@
-import React, {useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Card, FormControl, InputGroup } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import axios from "../api/axios";
@@ -54,7 +54,7 @@ export default function PackComponent(props) {
           <Card.Img variant="top" src={props.img} height="220" />
           <Card.Body>
             <Card.Title>{props.title}</Card.Title>
-            
+
             {Update && (
               <InputGroup className="mb-3">
                 <FormControl
@@ -99,9 +99,9 @@ export default function PackComponent(props) {
                 <Button
                   variant="btn btn-danger"
                   id={props.id}
-                  onClick={()=>props.handleDelete(props.id)}
+                  onClick={() => props.handleDelete(props.id)}
                 >
-                 <AiTwotoneDelete   size={28}/>
+                  <AiTwotoneDelete size={28} />
                 </Button>
               )}
             </div>

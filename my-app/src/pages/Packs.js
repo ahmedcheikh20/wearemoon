@@ -1,13 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
 import PackComponent from "../components/PackComponent";
-import "../styles/packs.css"
+
 // import data from "../data"
 import axios from "../api/axios";
 export default function Packs() {
   const [data, setData] = useState([]);
   const handleDelete = useCallback(async (ID) => {
-
-
     const response = await axios.delete(`packs/${ID}`, {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
@@ -20,7 +18,6 @@ export default function Packs() {
         withCredentials: true,
       })
       .then((rst) => {
-        
         setData(rst.data);
       })
       .catch((err) => {

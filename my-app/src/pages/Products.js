@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import ProductComponent from "../components/ProductComponent";
-import "../styles/products.css";
+
 // import data from "../data"
 import axios from "../api/axios";
 
