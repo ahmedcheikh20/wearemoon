@@ -70,6 +70,9 @@ export default function User({ user, handleDelete }) {
         <ListGroup className="list-group-flush">
           <ListGroupItem>{user.email}</ListGroupItem>
         </ListGroup>
+        <ListGroup className="list-group-flush">
+          <ListGroupItem>{user.role}</ListGroupItem>
+        </ListGroup>
         {Update && (
           <>
             <InputGroup className="mb-3">
