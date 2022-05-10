@@ -10,7 +10,7 @@ import {
   Container,
   Badge,
   Spinner,
-  Alert
+  Alert,
 } from "react-bootstrap";
 
 const AddPack = () => {
@@ -20,8 +20,7 @@ const AddPack = () => {
   const [pic, setPic] = useState("");
   const navigate = useNavigate();
   const formData = createRef();
-  const [error,setError] = useState("")
-
+  const [error, setError] = useState("");
 
   useEffect(() => {
     axios
@@ -89,38 +88,42 @@ const AddPack = () => {
 
   const add = async (event) => {
     event.preventDefault();
-    const products = packProducts.map(element => element.id)
+    const products = packProducts.map((element) => element.id);
     const newPack = {
       title: formData.current.product_name.value,
       price: Number(formData.current.price.value),
       description: formData.current.description.value,
       image: pic,
-      products: products
+      products: products,
     };
-   
-    try {
-      if(packProducts.length >= 1 ){
-      await axios.post("packs", JSON.stringify(newPack), {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      });
 
-      navigate("/packs", { replace: true });
-    }else{
-       setError("At least one product ")
-    }
+    try {
+      if (packProducts.length >= 1) {
+        await axios.post("packs", JSON.stringify(newPack), {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        });
+
+        navigate("/packs", { replace: true });
+      } else {
+        setError("At least one product ");
+      }
     } catch (err) {
-      setError("Bad request")
+      setError("Bad request");
     }
   };
 
   return (
     <Container className="mx-auto w-50 mt-5 ">
-         <h1 className="text-center">Add Pack</h1>
-            <Row>
+      <h1 className="text-center">Add Pack</h1>
+      <Row>
         <Col>
-          <Form onSubmit={add}  ref={formData}>
-            <Form.Group className="mb-3" controlId="formGridEmail" name="product_name">
+          <Form onSubmit={add} ref={formData}>
+            <Form.Group
+              className="mb-3"
+              controlId="formGridEmail"
+              name="product_name"
+            >
               <Form.Label>Pack Name</Form.Label>
               <Form.Control
                 type="text"
@@ -141,7 +144,6 @@ const AddPack = () => {
                     </option>
                   );
                 })}
-                
               </Form.Select>
             </Form.Group>
             <div>
@@ -161,7 +163,12 @@ const AddPack = () => {
 
             <Form.Group className="mb-3" controlId="formGridEmail" name="price">
               <Form.Label>Price</Form.Label>
-              <Form.Control type="number" placeholder="Price" name="price" required />
+              <Form.Control
+                type="number"
+                placeholder="Price"
+                name="price"
+                required
+              />
             </Form.Group>
             <Form.Group md="4" controlId="formBasicQty" name="image">
               <Form.Label>Photo:</Form.Label>
@@ -179,7 +186,12 @@ const AddPack = () => {
               name="description"
             >
               <Form.Label>Description</Form.Label>
-              <Form.Control placeholder="Description" as="textarea" rows={3}  name="description" />
+              <Form.Control
+                placeholder="Description"
+                as="textarea"
+                rows={3}
+                name="description"
+              />
             </Form.Group>
 
             <Button className="mt-3" type="submit">
@@ -189,9 +201,7 @@ const AddPack = () => {
           </Form>
         </Col>
       </Row>
-      <Alert >
-     {error}
-    </Alert>
+      <Alert>{error}</Alert>
     </Container>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {useState, useRef } from "react";
 import { Card, FormControl, InputGroup } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import axios from "../api/axios";
@@ -19,7 +19,7 @@ export default function PackComponent(props) {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `products/${e.target.id}`,
+        `packs/${e.target.id}`,
         JSON.stringify({ title: title.current.value }),
         {
           headers: { "Content-Type": "application/json" },
@@ -35,7 +35,7 @@ export default function PackComponent(props) {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `products/${e.target.id}`,
+        `packs/${e.target.id}`,
         JSON.stringify({ price: price.current.value }),
         {
           headers: { "Content-Type": "application/json" },
@@ -54,10 +54,11 @@ export default function PackComponent(props) {
           <Card.Img variant="top" src={props.img} height="220" />
           <Card.Body>
             <Card.Title>{props.title}</Card.Title>
+            
             {Update && (
               <InputGroup className="mb-3">
                 <FormControl
-                  placeholder="update product name"
+                  placeholder="update pack name"
                   aria-describedby="basic-addon2"
                   ref={title}
                 />
@@ -75,7 +76,7 @@ export default function PackComponent(props) {
             {Update && (
               <InputGroup className="mb-3">
                 <FormControl
-                  placeholder="update product name"
+                  placeholder="update the price"
                   aria-describedby="basic-addon2"
                   ref={price}
                 />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Form, Button, Stack } from "react-bootstrap";
+import { Form, Button, Stack, Alert } from "react-bootstrap";
 import { createRef } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 export default function AddProduct() {
   const navigate = useNavigate();
   const formData = createRef();
-  
+  const [error, setError] = useState("");
+
   // addproduct handler method
   const [loading, setLoading] = useState(false);
   const [pic, setPic] = useState("");
@@ -20,9 +21,9 @@ export default function AddProduct() {
       title: formData.current.product_name.value,
       price: Number(formData.current.price.value),
       description: formData.current.description.value,
-      image: pic
+      image: pic,
     };
-  
+
     try {
       await axios.post("products", JSON.stringify(newProduct), {
         headers: { "Content-Type": "application/json" },
@@ -31,10 +32,10 @@ export default function AddProduct() {
 
       navigate("/", { replace: true });
     } catch (err) {
-      console.log(err);
+      setError("Bad request");
     }
   };
-  
+
   const picInput = (pics) => {
     setLoading(true);
     if (pics === undefined) {
@@ -64,7 +65,6 @@ export default function AddProduct() {
       return;
     }
   };
-
 
   return (
     <Stack gap={2} className="col-md-6 mt-5 px-sm-5    mx-auto">
@@ -109,11 +109,17 @@ export default function AddProduct() {
             required
           />
         </Form.Group>
-        <Button className="mt-4" variant="primary" type="submit" disabled={!pic ? true : false}>
+        <Button
+          className="mt-4"
+          variant="primary"
+          type="submit"
+          disabled={!pic ? true : false}
+        >
           {" "}
           Add to Product
         </Button>
       </Form>
+      <Alert>{error}</Alert>
     </Stack>
   );
 }

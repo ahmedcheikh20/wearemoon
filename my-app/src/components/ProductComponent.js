@@ -74,7 +74,7 @@ export default function ProductComponent(props) {
             {Update && (
               <InputGroup className="mb-3">
                 <FormControl
-                  placeholder="update product name"
+                  placeholder="update the price"
                   aria-describedby="basic-addon2"
                   ref={price}
                 />

@@ -20,7 +20,7 @@ export default function Packs() {
         withCredentials: true,
       })
       .then((rst) => {
-        console.log(rst.data);
+        
         setData(rst.data);
       })
       .catch((err) => {
