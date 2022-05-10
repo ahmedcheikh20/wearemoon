@@ -52,7 +52,6 @@ export class UsersService {
 
   async getUsers() {
     const users = await this.usersModel.find().exec();
-    console.log(users)
     return users.map((user) => ({
       id: user.id,
       first_name: user.first_name,
